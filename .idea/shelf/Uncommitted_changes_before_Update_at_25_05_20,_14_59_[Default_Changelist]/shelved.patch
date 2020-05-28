@@ -1,0 +1,509 @@
+Index: conftest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pytest\nfrom selenium import webdriver\n\n\ndef pytest_addoption(parser):\n    parser.addoption('--browser_name', action='store', default=None,\n                     help=\"Choose browser: chrome or firefox\")\n\n\n@pytest.fixture(scope=\"function\")\ndef browser(request):\n    browser_name = request.config.getoption(\"browser_name\")\n    browser = None\n    if browser_name == \"chrome\":\n        print(\"\\nstart chrome browser for test..\")\n        browser = webdriver.Chrome()\n    elif browser_name == \"firefox\":\n        print(\"\\nstart firefox browser for test..\")\n        browser = webdriver.Firefox()\n    else:\n        raise pytest.UsageError(\"--browser_name should be chrome or firefox\")\n    yield browser\n    print(\"\\nquit browser..\")\n    browser.quit()\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- conftest.py	(revision fae09253db4174cee9959617b1d772a8d04c1cd8)
++++ conftest.py	(date 1590406222385)
+@@ -2,23 +2,12 @@
+ from selenium import webdriver
+ 
+ 
+-def pytest_addoption(parser):
+-    parser.addoption('--browser_name', action='store', default=None,
+-                     help="Choose browser: chrome or firefox")
+-
+-
+ @pytest.fixture(scope="function")
+-def browser(request):
+-    browser_name = request.config.getoption("browser_name")
+-    browser = None
+-    if browser_name == "chrome":
+-        print("\nstart chrome browser for test..")
+-        browser = webdriver.Chrome()
+-    elif browser_name == "firefox":
+-        print("\nstart firefox browser for test..")
+-        browser = webdriver.Firefox()
+-    else:
+-        raise pytest.UsageError("--browser_name should be chrome or firefox")
++def browser():
++    print("\nstart chrome browser for test..")
++    browser = webdriver.Chrome()
+     yield browser
+     print("\nquit browser..")
+     browser.quit()
++
++
+Index: .idea/course_finale.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\" />\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.7 (stepik)\" jdkType=\"Python SDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n  <component name=\"TestRunnerService\">\n    <option name=\"PROJECT_TEST_RUNNER\" value=\"pytest\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/course_finale.iml	(revision fae09253db4174cee9959617b1d772a8d04c1cd8)
++++ .idea/course_finale.iml	(date 1590406420933)
+@@ -1,7 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$" />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
++    </content>
+     <orderEntry type="jdk" jdkName="Python 3.7 (stepik)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"BranchesTreeState\">\n    <expand>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n    </expand>\n    <select>\n      <path>\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\n        <item name=\"BRANCH:master\" type=\"e8cecc67:BranchNodeDescriptor\" />\n      </path>\n    </select>\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"28bf8a74-8497-4ba6-afd7-a7ffa3623f6f\" name=\"Default Changelist\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/__init__.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GithubDefaultAccount\">\n    <option name=\"defaultAccountId\" value=\"50ca3d50-83dc-4e44-8fe5-e8c8dd778c5e\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1cGBA8d3atFdHvCSWTYJEpH9hY4\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"org.jetbrains.plugins.github.ui.GithubSettingsConfigurable\" />\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"conftest\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"course_finale\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/conftest.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"tests\" factoryName=\"py.test\">\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"$USER_HOME$/PycharmProjects/stepik/venv/bin/python\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <module name=\"\" />\n      <option name=\"_new_keywords\" value=\"&quot;&quot;\" />\n      <option name=\"_new_parameters\" value=\"&quot;&quot;\" />\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\n      <option name=\"_new_target\" value=\"&quot;&quot;\" />\n      <option name=\"_new_targetType\" value=\"&quot;PATH&quot;\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.conftest\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SvnConfiguration\">\n    <configuration />\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"28bf8a74-8497-4ba6-afd7-a7ffa3623f6f\" name=\"Default Changelist\" comment=\"\" />\n      <created>1590144903841</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1590144903841</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first\">\n      <created>1590145988011</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1590145988011</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"first\">\n      <created>1590147509248</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1590147509248</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State>\n              <option name=\"FILTERS\">\n                <map>\n                  <entry key=\"branch\">\n                    <value>\n                      <list>\n                        <option value=\"master\" />\n                      </list>\n                    </value>\n                  </entry>\n                </map>\n              </option>\n            </State>\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"first\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"first\" />\n  </component>\n  <component name=\"WindowStateProjectService\">\n    <state x=\"622\" y=\"234\" width=\"732\" height=\"637\" key=\"#Inspections\" timestamp=\"1590145714509\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"622\" y=\"234\" width=\"732\" height=\"637\" key=\"#Inspections/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145714509\" />\n    <state x=\"863\" y=\"421\" width=\"251\" height=\"263\" key=\"#Notifications\" timestamp=\"1590145002274\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"863\" y=\"421\" width=\"251\" height=\"263\" key=\"#Notifications/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145002274\" />\n    <state x=\"451\" y=\"210\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog\" timestamp=\"1590147293625\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"451\" y=\"210\" key=\"#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590147293625\" />\n    <state x=\"532\" y=\"100\" width=\"912\" height=\"904\" key=\"CommitChangelistDialog2\" timestamp=\"1590147509165\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"532\" y=\"100\" width=\"912\" height=\"904\" key=\"CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590147509165\" />\n    <state x=\"242\" y=\"116\" width=\"1482\" height=\"872\" key=\"DiffContextDialog\" timestamp=\"1590147224797\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"242\" y=\"116\" width=\"1482\" height=\"872\" key=\"DiffContextDialog/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590147224797\" />\n    <state x=\"776\" y=\"310\" width=\"424\" height=\"484\" key=\"FileChooserDialogImpl\" timestamp=\"1590147647463\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"776\" y=\"310\" width=\"424\" height=\"484\" key=\"FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590147647463\" />\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1590145790621\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145790621\" />\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.center\" timestamp=\"1590145790618\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145790618\" />\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.left\" timestamp=\"1590145790617\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145790617\" />\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.right\" timestamp=\"1590145790620\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state width=\"1830\" height=\"278\" key=\"GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590145790620\" />\n    <state x=\"482\" y=\"187\" key=\"SettingsEditor\" timestamp=\"1590404735506\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"482\" y=\"187\" key=\"SettingsEditor/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590404735506\" />\n    <state x=\"764\" y=\"467\" width=\"448\" height=\"170\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2\" timestamp=\"1590147379674\">\n      <screen x=\"67\" y=\"27\" width=\"1853\" height=\"1053\" />\n    </state>\n    <state x=\"764\" y=\"467\" width=\"448\" height=\"170\" key=\"com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/67.27.1853.1053@67.27.1853.1053\" timestamp=\"1590147379674\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision fae09253db4174cee9959617b1d772a8d04c1cd8)
++++ .idea/workspace.xml	(date 1590407980126)
+@@ -26,7 +26,20 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="28bf8a74-8497-4ba6-afd7-a7ffa3623f6f" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/test_main_page.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/__init__.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/activate.csh" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/activate.fish" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/chromedriver" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/python" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/python3" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/bin/python3.6" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/chromedriver" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/venv/pyvenv.cfg" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/course_finale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/course_finale.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -41,6 +54,7 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="PUSH_AUTO_UPDATE" value="true" />
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GithubDefaultAccount">
+@@ -58,10 +72,16 @@
+     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/bin" />
++    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
++  </component>
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/venv/bin" />
++      <recent name="$PROJECT_DIR$" />
++    </key>
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Python tests.pytest in test_main_page.py">
+     <configuration name="conftest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="course_finale" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -99,9 +119,60 @@
+       <option name="_new_targetType" value="&quot;PATH&quot;" />
+       <method v="2" />
+     </configuration>
++    <configuration name="pytest for test_main_page.test" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
++      <module name="course_finale" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="$USER_HOME$/PycharmProjects/stepik/venv/bin/python" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_keywords" value="&quot;&quot;" />
++      <option name="_new_parameters" value="&quot;&quot;" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;test_main_page.test&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="pytest for test_main_page.test_guest_can_go_to_login_page" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
++      <module name="course_finale" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="$USER_HOME$/PycharmProjects/stepik/venv/bin/python" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_keywords" value="&quot;&quot;" />
++      <option name="_new_parameters" value="&quot;&quot;" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;test_main_page.test_guest_can_go_to_login_page&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="pytest in test_main_page.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
++      <module name="course_finale" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="$USER_HOME$/PycharmProjects/stepik/venv/bin/python" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_keywords" value="&quot;&quot;" />
++      <option name="_new_parameters" value="&quot;&quot;" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;$PROJECT_DIR$/test_main_page.py&quot;" />
++      <option name="_new_targetType" value="&quot;PATH&quot;" />
++      <method v="2" />
++    </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Python tests.pytest in test_main_page.py" />
++        <item itemvalue="Python tests.pytest for test_main_page.test" />
+         <item itemvalue="Python.conftest" />
++        <item itemvalue="Python tests.pytest for test_main_page.test_guest_can_go_to_login_page" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -130,7 +201,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1590147509248</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="first">
++      <created>1590404843505</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1590404843505</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -163,10 +241,10 @@
+     <option name="LAST_COMMIT_MESSAGE" value="first" />
+   </component>
+   <component name="WindowStateProjectService">
+-    <state x="622" y="234" width="732" height="637" key="#Inspections" timestamp="1590145714509">
++    <state x="622" y="234" width="732" height="637" key="#Inspections" timestamp="1590406744863">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state x="622" y="234" width="732" height="637" key="#Inspections/67.27.1853.1053@67.27.1853.1053" timestamp="1590145714509" />
++    <state x="622" y="234" width="732" height="637" key="#Inspections/67.27.1853.1053@67.27.1853.1053" timestamp="1590406744863" />
+     <state x="863" y="421" width="251" height="263" key="#Notifications" timestamp="1590145002274">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+@@ -175,38 +253,42 @@
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+     <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1590147293625" />
+-    <state x="532" y="100" width="912" height="904" key="CommitChangelistDialog2" timestamp="1590147509165">
++    <state x="532" y="100" width="912" height="904" key="CommitChangelistDialog2" timestamp="1590404843438">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state x="532" y="100" width="912" height="904" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1590147509165" />
+-    <state x="242" y="116" width="1482" height="872" key="DiffContextDialog" timestamp="1590147224797">
++    <state x="532" y="100" width="912" height="904" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1590404843438" />
++    <state x="242" y="116" width="1482" height="872" key="DiffContextDialog" timestamp="1590405966100">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state x="242" y="116" width="1482" height="872" key="DiffContextDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1590147224797" />
++    <state x="242" y="116" width="1482" height="872" key="DiffContextDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1590405966100" />
+     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1590147647463">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1590147647463" />
+-    <state width="1830" height="278" key="GridCell.Tab.0.bottom" timestamp="1590145790621">
++    <state width="1830" height="278" key="GridCell.Tab.0.bottom" timestamp="1590407740549">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state width="1830" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1590145790621" />
+-    <state width="1830" height="278" key="GridCell.Tab.0.center" timestamp="1590145790618">
++    <state width="1830" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1590407740549" />
++    <state width="1830" height="278" key="GridCell.Tab.0.center" timestamp="1590407740546">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state width="1830" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1590145790618" />
+-    <state width="1830" height="278" key="GridCell.Tab.0.left" timestamp="1590145790617">
++    <state width="1830" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1590407740546" />
++    <state width="1830" height="278" key="GridCell.Tab.0.left" timestamp="1590407740545">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state width="1830" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1590145790617" />
+-    <state width="1830" height="278" key="GridCell.Tab.0.right" timestamp="1590145790620">
++    <state width="1830" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1590407740545" />
++    <state width="1830" height="278" key="GridCell.Tab.0.right" timestamp="1590407740547">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state width="1830" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1590145790620" />
+-    <state x="482" y="187" key="SettingsEditor" timestamp="1590404735506">
++    <state width="1830" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1590407740547" />
++    <state x="482" y="187" key="SettingsEditor" timestamp="1590407673019">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+-    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1590404735506" />
++    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1590407673019" />
++    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1590407969257">
++      <screen x="67" y="27" width="1853" height="1053" />
++    </state>
++    <state x="588" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2/67.27.1853.1053@67.27.1853.1053" timestamp="1590407969257" />
+     <state x="764" y="467" width="448" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590147379674">
+       <screen x="67" y="27" width="1853" height="1053" />
+     </state>
+Index: venv/pyvenv.cfg
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- venv/pyvenv.cfg	(date 1580890497602)
++++ venv/pyvenv.cfg	(date 1580890497602)
+@@ -0,0 +1,3 @@
++home = /usr/bin
++include-system-site-packages = false
++version = 3.6.9
+Index: venv/bin/activate
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- venv/bin/activate	(date 1580890497606)
++++ venv/bin/activate	(date 1580890497606)
+@@ -0,0 +1,76 @@
++# This file must be used with "source bin/activate" *from bash*
++# you cannot run it directly
++
++deactivate () {
++    # reset old environment variables
++    if [ -n "${_OLD_VIRTUAL_PATH:-}" ] ; then
++        PATH="${_OLD_VIRTUAL_PATH:-}"
++        export PATH
++        unset _OLD_VIRTUAL_PATH
++    fi
++    if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
++        PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
++        export PYTHONHOME
++        unset _OLD_VIRTUAL_PYTHONHOME
++    fi
++
++    # This should detect bash and zsh, which have a hash command that must
++    # be called to get it to forget past commands.  Without forgetting
++    # past commands the $PATH changes we made may not be respected
++    if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
++        hash -r
++    fi
++
++    if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
++        PS1="${_OLD_VIRTUAL_PS1:-}"
++        export PS1
++        unset _OLD_VIRTUAL_PS1
++    fi
++
++    unset VIRTUAL_ENV
++    if [ ! "$1" = "nondestructive" ] ; then
++    # Self destruct!
++        unset -f deactivate
++    fi
++}
++
++# unset irrelevant variables
++deactivate nondestructive
++
++VIRTUAL_ENV="/home/christina/PycharmProjects/stepik/venv"
++export VIRTUAL_ENV
++
++_OLD_VIRTUAL_PATH="$PATH"
++PATH="$VIRTUAL_ENV/bin:$PATH"
++export PATH
++
++# unset PYTHONHOME if set
++# this will fail if PYTHONHOME is set to the empty string (which is bad anyway)
++# could use `if (set -u; : $PYTHONHOME) ;` in bash
++if [ -n "${PYTHONHOME:-}" ] ; then
++    _OLD_VIRTUAL_PYTHONHOME="${PYTHONHOME:-}"
++    unset PYTHONHOME
++fi
++
++if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
++    _OLD_VIRTUAL_PS1="${PS1:-}"
++    if [ "x(venv) " != x ] ; then
++	PS1="(venv) ${PS1:-}"
++    else
++    if [ "`basename \"$VIRTUAL_ENV\"`" = "__" ] ; then
++        # special case for Aspen magic directories
++        # see http://www.zetadev.com/software/aspen/
++        PS1="[`basename \`dirname \"$VIRTUAL_ENV\"\``] $PS1"
++    else
++        PS1="(`basename \"$VIRTUAL_ENV\"`)$PS1"
++    fi
++    fi
++    export PS1
++fi
++
++# This should detect bash and zsh, which have a hash command that must
++# be called to get it to forget past commands.  Without forgetting
++# past commands the $PATH changes we made may not be respected
++if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
++    hash -r
++fi
+Index: test_main_page.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- test_main_page.py	(date 1590406757255)
++++ test_main_page.py	(date 1590406757255)
+@@ -0,0 +1,12 @@
++from selenium import webdriver
++
++
++def test_guest_can_go_to_login_page(browser):
++    link = "http://selenium1py.pythonanywhere.com/"
++    browser.get(link)
++    login_link = browser.find_element_by_css_selector("#login_link")
++    login_link.click()
++
++def test():
++    driver = webdriver.Chrome()
++    driver.get("https://www.browserstack.com/")
+Index: venv/bin/activate.csh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- venv/bin/activate.csh	(date 1580890497602)
++++ venv/bin/activate.csh	(date 1580890497602)
+@@ -0,0 +1,37 @@
++# This file must be used with "source bin/activate.csh" *from csh*.
++# You cannot run it directly.
++# Created by Davide Di Blasi <davidedb@gmail.com>.
++# Ported to Python 3.3 venv by Andrew Svetlov <andrew.svetlov@gmail.com>
++
++alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PATH" && unset _OLD_VIRTUAL_PATH; rehash; test $?_OLD_VIRTUAL_PROMPT != 0 && set prompt="$_OLD_VIRTUAL_PROMPT" && unset _OLD_VIRTUAL_PROMPT; unsetenv VIRTUAL_ENV; test "\!:*" != "nondestructive" && unalias deactivate'
++
++# Unset irrelevant variables.
++deactivate nondestructive
++
++setenv VIRTUAL_ENV "/home/christina/PycharmProjects/stepik/venv"
++
++set _OLD_VIRTUAL_PATH="$PATH"
++setenv PATH "$VIRTUAL_ENV/bin:$PATH"
++
++
++set _OLD_VIRTUAL_PROMPT="$prompt"
++
++if (! "$?VIRTUAL_ENV_DISABLE_PROMPT") then
++    if ("venv" != "") then
++        set env_name = "venv"
++    else
++        if (`basename "VIRTUAL_ENV"` == "__") then
++            # special case for Aspen magic directories
++            # see http://www.zetadev.com/software/aspen/
++            set env_name = `basename \`dirname "$VIRTUAL_ENV"\``
++        else
++            set env_name = `basename "$VIRTUAL_ENV"`
++        endif
++    endif
++    set prompt = "[$env_name] $prompt"
++    unset env_name
++endif
++
++alias pydoc python -m pydoc
++
++rehash
+Index: venv/bin/activate.fish
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- venv/bin/activate.fish	(date 1580890497602)
++++ venv/bin/activate.fish	(date 1580890497602)
+@@ -0,0 +1,75 @@
++# This file must be used with ". bin/activate.fish" *from fish* (http://fishshell.org)
++# you cannot run it directly
++
++function deactivate  -d "Exit virtualenv and return to normal shell environment"
++    # reset old environment variables
++    if test -n "$_OLD_VIRTUAL_PATH"
++        set -gx PATH $_OLD_VIRTUAL_PATH
++        set -e _OLD_VIRTUAL_PATH
++    end
++    if test -n "$_OLD_VIRTUAL_PYTHONHOME"
++        set -gx PYTHONHOME $_OLD_VIRTUAL_PYTHONHOME
++        set -e _OLD_VIRTUAL_PYTHONHOME
++    end
++
++    if test -n "$_OLD_FISH_PROMPT_OVERRIDE"
++        functions -e fish_prompt
++        set -e _OLD_FISH_PROMPT_OVERRIDE
++        functions -c _old_fish_prompt fish_prompt
++        functions -e _old_fish_prompt
++    end
++
++    set -e VIRTUAL_ENV
++    if test "$argv[1]" != "nondestructive"
++        # Self destruct!
++        functions -e deactivate
++    end
++end
++
++# unset irrelevant variables
++deactivate nondestructive
++
++set -gx VIRTUAL_ENV "/home/christina/PycharmProjects/stepik/venv"
++
++set -gx _OLD_VIRTUAL_PATH $PATH
++set -gx PATH "$VIRTUAL_ENV/bin" $PATH
++
++# unset PYTHONHOME if set
++if set -q PYTHONHOME
++    set -gx _OLD_VIRTUAL_PYTHONHOME $PYTHONHOME
++    set -e PYTHONHOME
++end
++
++if test -z "$VIRTUAL_ENV_DISABLE_PROMPT"
++    # fish uses a function instead of an env var to generate the prompt.
++
++    # save the current fish_prompt function as the function _old_fish_prompt
++    functions -c fish_prompt _old_fish_prompt
++
++    # with the original prompt function renamed, we can override with our own.
++    function fish_prompt
++        # Save the return status of the last command
++        set -l old_status $status
++
++        # Prompt override?
++        if test -n "(venv) "            
++            printf "%s%s" "(venv) " (set_color normal)
++        else
++            # ...Otherwise, prepend env
++            set -l _checkbase (basename "$VIRTUAL_ENV")
++            if test $_checkbase = "__"
++                # special case for Aspen magic directories
++                # see http://www.zetadev.com/software/aspen/
++                printf "%s[%s]%s " (set_color -b blue white) (basename (dirname "$VIRTUAL_ENV")) (set_color normal)
++            else
++                printf "%s(%s)%s" (set_color -b blue white) (basename "$VIRTUAL_ENV") (set_color normal)
++            end
++        end
++
++        # Restore the return status of the previous command.
++        echo "exit $old_status" | .
++        _old_fish_prompt
++    end
++
++    set -gx _OLD_FISH_PROMPT_OVERRIDE "$VIRTUAL_ENV"
++end
+diff --git venv/__init__.py venv/__init__.py
+new file mode 100644
